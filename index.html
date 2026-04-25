@@ -95,7 +95,7 @@
     h2 { 
       font-size: clamp(32px, 5vw, 72px); 
       letter-spacing: -0.05em;
-      margin-bottom: 15px; /* Tiivistetty väli tekstin ja otsikon välillä */
+      margin-bottom: 4px; /* Erittäin pieni väli */
     }
 
     .intro {
@@ -148,6 +148,15 @@
 
     .collective { margin-top: 56px; padding-top: 30px; border-top: 1px solid var(--line); }
     .collective h3 { margin: 0 0 14px; font-size: 16px; letter-spacing: 0.12em; text-transform: uppercase; }
+
+    .names {
+      margin: 0;
+      font-size: clamp(22px, 3vw, 42px);
+      font-weight: 700;
+      line-height: 1.12;
+      letter-spacing: -0.04em;
+      text-transform: uppercase;
+    }
 
     .site-footer {
       max-width: 1180px;
@@ -202,13 +211,11 @@
 
       <section class="content">
         <aside class="meta">
-          <!-- Tekstiboksi vasemmalla -->
           <div class="meta-block">
             <span class="meta-title">Teksti</span>
             kirjoittanut Otso Kähönen<br>
             8.3.2026
           </div>
-          <!-- Yhteysboksi vasemmalla -->
           <div class="meta-block" id="yhteys">
             <span class="meta-title">Yhteys</span>
             <a href="mailto:info@a-kollektiivi.fi">info@a-kollektiivi.fi</a>
@@ -245,7 +252,7 @@
 
           <section class="collective" id="kollektiivi">
             <h3>Å-kollektiivi</h3>
-            <p>
+            <p class="names">
               Anna K Greus - Jani Frisk - Otso Kähönen<br>
               Peksi - Jussi Ronkainen - Riikka Ruotsalainen
             </p>
