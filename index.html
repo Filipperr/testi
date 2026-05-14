@@ -7,8 +7,10 @@
   <title>Å-Kollektiivi</title>
   <style>
     #kuvu {
-      height:30%;
+      height: 30px;
       width: auto;
+      vertical-align: middle;
+      margin-left: 8px;
     }
     #aika {
       color: var(--highlight);
@@ -16,8 +18,7 @@
     #sasa {
       color: var(--highlight);
     }
-   
-    
+             
     :root {
       --bg: #fff;
       --ink: #111;
@@ -347,14 +348,15 @@
           </div>
           <div class="meta-block">
             <span class="meta-title" id="sasa">Some</span>
-            <a href="https://www.instagram.com/_kollektiivi?igsh=dmx3NmNpenF1MG9j" aria-label="Å-Kollektiivi Instagram" id="insta">Instagram</a>
-            <img id="kuvu"src="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original">
+            <a href="instagram.com" aria-label="Å-Kollektiivi Instagram" id="insta">Instagram</a>
+            <img id="kuvu" src="https://wikimedia.org" alt="">
           </div>
         </aside>
 
         <article class="manifest">
+          <h2 id="manifesti-otsikko" style="display:none;">Manifesti</h2>
           <p class="author">Kirjoittanut Otso Kähönen 8.3.2026</p>
-          
+                    
           <p>
             Å-kirjain ei juuri esiinny suomen kielessä.
             Sitä tavataan lähinnä paikannimissä, erisnimissä ja harvinaisissa lainasanoissa.
@@ -380,12 +382,10 @@
             Nousemme taiteen homogeenisyyttä vastaan ja annamme oman näkemyksemme
             näkyä ja kuulua rohkeasti.
           </p>
+          
           <h3 id="aika">Ajankohtaista</h3>
-        
-          <p>Å-Kollektiivi = Å-Kollektiivi: Valokuvataiteen ryhmänäyttely 7.—30.5.2026
-Galleria West, Kaapelitehdas</p>
-        
-
+          <p>Å-Kollektiivi = Å-Kollektiivi: Valokuvataiteen ryhmänäyttely 7.—30.5.2026 Galleria West, Kaapelitehdas</p>
+                   
           <section class="collective" id="kollektiivi" aria-labelledby="kollektiivi-otsikko">
             <h2 id="kollektiivi-otsikko">Å-kollektiivi</h2>
             <p class="names">
@@ -397,7 +397,7 @@ Galleria West, Kaapelitehdas</p>
       </section>
     </main>
 
-    <footer class="site-footer">
+    <footer class="site-footer" aria-label="Sivuston alaosa">
       <span>© 2026 Å-Kollektiivi</span>
     </footer>
   </div>
