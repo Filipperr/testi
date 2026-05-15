@@ -20,7 +20,7 @@
     }
     #sasa {
       color: var(--highlight);
-    }                   
+    }                        
     :root {
       --bg: #fff;
       --ink: #111;
@@ -82,6 +82,7 @@
       text-transform: uppercase;
       letter-spacing: 0.08em;
       font-size: 13px;
+      position: relative;
     }
 
     .brand {
@@ -108,10 +109,55 @@
       object-fit: contain;
     }
 
-    .nav {
+    /* KIELIVALIKON TYYLIT */
+    .lang-selector {
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 100;
+    }
+
+    .lang-trigger {
+      cursor: pointer;
       display: flex;
-      gap: 22px;
-      color: var(--muted);
+      align-items: center;
+      border: 1px solid var(--line);
+      padding: 4px;
+      background: var(--bg);
+    }
+
+    .lang-trigger svg, .lang-dropdown svg {
+      width: 32px;
+      height: 20px;
+      display: block;
+    }
+
+    .lang-dropdown {
+      display: none;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: var(--bg);
+      border: 1px solid var(--line);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      margin-top: 4px;
+    }
+
+    .lang-dropdown.show {
+      display: block;
+    }
+
+    .lang-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+    }
+
+    .lang-option:hover {
+      background: rgba(0,0,0,0.05);
     }
 
     .hero {
@@ -128,7 +174,7 @@
       bottom: 0;
       z-index: 0;
       color: var(--highlight);
-      opacity: 1; /* Muutettu 0.25 -> 1 kirkkaan keltaiseksi */
+      opacity: 1;
       pointer-events: none;
     }
 
@@ -155,18 +201,24 @@
 
     h1, h2 {
       margin: 0;
-      line-height: 0.95;
       text-transform: uppercase;
     }
 
     h1 {
-      max-width: none;
+      max-width: fit-content;
       font-size: clamp(48px, 6.7vw, 96px);
       letter-spacing: -0.065em;
       white-space: nowrap;
+      overflow: hidden;
+      line-height: 1.2;
+      border-right: 4px solid var(--ink);
+      animation: 
+        kirjoita 6s steps(13, end) infinite,
+        vilkku-kursori 0.75s step-end infinite;
     }
 
     h2 {
+      line-height: 0.95;
       font-size: clamp(32px, 5vw, 72px);
       letter-spacing: -0.05em;
       margin-bottom: 60px;
@@ -231,7 +283,6 @@
       line-height: 1.7;
     }
 
-    /* Kirjoittaja-rivin p-elementin muotoilu ilman inline-tyyliä */
     .manifest p.author {
       font-size: 14px;
       color: var(--muted);
@@ -267,23 +318,31 @@
       font-size: 14px;
     }
 
+    @keyframes kirjoita {
+      0%, 100% { width: 0; }
+      45%, 55% { width: 100%; }
+    }
+
+    @keyframes vilkku-kursori {
+      from, to { border-color: transparent; }
+      50% { border-color: var(--ink); }
+    }
+
     @media (max-width: 760px) {
       .page {
         padding: 18px;
       }
 
-      .site-header, .nav {
+      .site-header {
         align-items: flex-start;
         flex-direction: column;
-      }
-
-      .site-header {
         gap: 18px;
         margin-bottom: 64px;
       }
 
-      .nav {
-        gap: 10px;
+      .lang-selector {
+        top: 18px;
+        right: 18px;
       }
 
       .content {
@@ -305,7 +364,7 @@
       }
 
       h1 {
-        white-space: normal;
+        white-space: nowrap;
       }
 
       .meta {
@@ -321,18 +380,35 @@
         <span class="brand-mark" aria-hidden="true">Å</span>
         <span>Å-Kollektiivi</span>
       </a>
-      <nav class="nav" aria-label="Päävalikko">
-        <a href="#manifesti">Manifesti</a>
-        <a href="#kollektiivi">Kollektiivi</a>
-      </nav>
+
+      <!-- KIELIVALIKKO SIVUN OIKEASSA YLÄKULMASSA -->
+      <div class="lang-selector">
+        <div class="lang-trigger" id="langTrigger" onclick="toggleDropdown()">
+          <svg id="currentFlag" viewBox="0 0 18 11"><rect width="18" height="11" fill="#fff"/><style>.b{fill:#002f6c}</style><rect fill="#002f6c" y="4" width="18" height="3"/><rect fill="#002f6c" x="5" width="3" height="11"/></svg>
+        </div>
+        <div class="lang-dropdown" id="langDropdown">
+          <div class="lang-option" onclick="changeLang('fi')">
+            <svg viewBox="0 0 18 11"><rect width="18" height="11" fill="#fff"/><rect fill="#002f6c" y="4" width="18" height="3"/><rect fill="#002f6c" x="5" width="3" height="11"/></svg>
+            <span>FI</span>
+          </div>
+          <div class="lang-option" onclick="changeLang('en')">
+            <svg viewBox="0 0 50 30"><clipPath id="a"><path d="M0 0v30h50V0z"/></clipPath><g clip-path="url(#a)"><path d="M0 0v30h50V0z" fill="#012169"/><path d="M0 0l50 30M50 0L0 30" stroke="#fff" stroke-width="6"/><path d="M0 0l50 30M50 0L0 30" stroke="#C8102E" stroke-width="4"/><path d="M25 0v30M0 15h50" stroke="#fff" stroke-width="10"/><path d="M25 0v30M0 15h50" stroke="#C8102E" stroke-width="6"/></g></svg>
+            <span>EN</span>
+          </div>
+          <div class="lang-option" onclick="changeLang('sv')">
+            <svg viewBox="0 0 16 10"><rect width="16" height="10" fill="#006aa7"/><rect x="5" width="2" height="10" fill="#fecc00"/><rect y="4" width="16" height="2" fill="#fecc00"/></svg>
+            <span>SV</span>
+          </div>
+        </div>
+      </div>
     </header>
 
     <main id="alku">
       <section class="hero" aria-labelledby="sivun-otsikko">
         <div class="hero-copy">
-          <p class="eyebrow">Valokuvataiteilijoiden yhteenliittymä</p>
+          <p class="eyebrow" data-i18n="hero-eyebrow">Valokuvataiteilijoiden yhteenliittymä</p>
           <h1 id="sivun-otsikko">Å-Kollektiivi</h1>
-          <p class="intro">
+          <p class="intro" data-i18n="hero-intro">
             Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.
             Teemme taidetta itsenäisesti, yhdessä ja rinnakkain.
           </p>
@@ -345,51 +421,33 @@
       <section class="content" id="manifesti" aria-labelledby="manifesti-otsikko">
         <aside class="meta">
           <div class="meta-block" id="yhteys">
-            <h3>Yhteydenotto</h3>
+            <h3 data-i18n="meta-contact">Yhteydenotto</h3>
             <a href="mailto:info@a-kollektiivi.fi">info@a-kollektiivi.fi</a><br>
           </div>
           <div class="meta-block">
-            <span class="meta-title" id="sasa">Some</span>
-            <a href="https://www.instagram.com/_kollektiivi?igsh=dmx3NmNpenF1MG9j" id="insta">Instagram</a>
-            <img id="kuvu" src="https://static.vecteezy.com/system/resources/thumbnails/023/986/885/small/instagram-logo-instagram-logo-transparent-instagram-icon-transparent-free-free-png.png" alt="">
+            <span class="meta-title" id="sasa" data-i18n="meta-social">Some</span>
+            <a href="https://instagram.com" id="insta">Instagram</a>
+            <img id="kuvu" src="https://vecteezy.com" alt="">
           </div>
         </aside>
 
         <article class="manifest">
-          <h2 id="manifesti-otsikko" style="display:none;">Manifesti</h2>
-          <p class="author">Kirjoittanut Otso Kähönen 8.3.2026</p>
+          <h2 id="manifesti-otsikko" style="display:none;" data-i18n="manifest-title">Manifesti</h2>
+          <p class="author" data-i18n="manifest-author">Kirjoittanut Otso Kähönen 8.3.2026</p>
 
-          <p>
-            Å-kirjain ei juuri esiinny suomen kielessä.
-            Sitä tavataan lähinnä paikannimissä, erisnimissä ja harvinaisissa lainasanoissa.
-            29 aakkosemme joukossa å on todellinen poikkeus.
-            Marginaalinen. Omaperäinen. Kätketty aarre.
-          </p>
-          <p>
-            Å-kirjain kollektiivin nimessä edustaa tätä kaikkea.
-            Se mahdollistaa tekemisellemme lähes minkä tahansa merkityksen.
-            Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.
-          </p>
-          <p>
-            Lähestymme taidetta vapaasti – kulloistenkin ideoiden, ajatusten,
-            halujen ja intuition johdattelemana. Teemme taidetta itsenäisesti,
-            yhdessä ja rinnakkain.
-          </p>
-          <p>
-            Työskentelytapamme perustuu avoimuuteen.
-            Kannustamme toisiamme. Kokeilemme. Leikimme taiteella ja sen käsitteillä.
-            Å-kollektiiviin mahtuu laaja kirjo tekemistä. Ilman rajoituksia. Ilman odotuksia.
-          </p>
-          <p>
-            Nousemme taiteen homogeenisyyttä vastaan ja annamme oman näkemyksemme
-            näkyä ja kuulua rohkeasti.
-          </p>
+          <div id="manifest-content">
+            <p>Å-kirjain ei juuri esiinny suomen kielessä. Sitä tavataan lähinnä paikannimissä, erisnimissä ja harvinaisissa lainasanoissa. 29 aakkosemme joukossa å on todellinen poikkeus. Marginaalinen. Omaperäinen. Kätketty aarre.</p>
+            <p>Å-kirjain kollektiivin nimessä edustaa tätä kaikkea. Se mahdollistaa tekemisellemme lähes minkä tahansa merkityksen. Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.</p>
+            <p>Lähestymme taidetta vapaasti – kulloistenkin ideoiden, ajatusten, halujen ja intuition johdattelemana. Teemme taidetta itsenäisesti, yhdessä ja rinnakkain.</p>
+            <p>Työskentelytapamme perustuu avoimuuteen. Kannustamme toisiamme. Kokeilemme. Leikimme taiteella ja sen käsitteillä. Å-kollektiiviin mahtuu laaja kirjo tekemistä. Ilman rajoituksia. Ilman odotuksia.</p>
+            <p>Nousemme taiteen homogeenisyyttä vastaan ja annamme oman näkemyksemme näkyä ja kuulua rohkeasti.</p>
+          </div>
 
-          <h3 id="aika">Ajankohtaista</h3>
-          <p>Å-Kollektiivi = Å-Kollektiivi: Valokuvataiteen ryhmänäyttely 7.—30.5.2026 Galleria West, Kaapelitehdas</p>
+          <h3 id="aika" data-i18n="news-title">Ajankohtaista</h3>
+          <p data-i18n="news-content">Å-Kollektiivi = Å-Kollektiivi: Valokuvataiteen ryhmänäyttely 7.—30.5.2026 Galleria West, Kaapelitehdas</p>
 
           <section class="collective" id="kollektiivi" aria-labelledby="kollektiivi-otsikko">
-            <h3 id="kollektiivi-otsikko">Å-kollektiivi</h3>
+            <h3 id="kollektiivi-otsikko" data-i18n="collective-title">Å-kollektiivi</h3>
             <p class="names">
               Anna K Greus - Jani Frisk - Otso Kähönen<br>
               Peksi - Jussi Ronkainen - Riikka Ruotsalainen
@@ -403,5 +461,113 @@
       <span>© 2026 Å-Kollektiivi</span>
     </footer>
   </div>
+
+  <script>
+    const translations = {
+      fi: {
+        "hero-title": "Å-Kollektiivi",
+        "hero-eyebrow": "Valokuvataiteilijoiden yhteenliittymä",
+        "hero-intro": "Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa. Teemme taidetta itsenäisesti, yhdessä ja rinnakkain.",
+        "meta-contact": "Yhteydenotto",
+        "meta-social": "Some",
+        "manifest-title": "Manifesti",
+        "manifest-author": "Kirjoittanut Otso Kähönen 8.3.2026",
+        "news-title": "Ajankohtaista",
+        "news-content": "Å-Kollektiivi = Å-Kollektiivi: Valokuvataiteen ryhmänäyttely 7.—30.5.2026 Galleria West, Kaapelitehdas",
+        "collective-title": "Å-kollektiivi",
+        "manifest-p1": "Å-kirjain ei juuri esiinny suomen kielessä. Sitä tavataan lähinnä paikannimissä, erisnimissä ja harvinaisissa lainasanoissa. 29 aakkosemme joukossa å on todellinen poikkeus. Marginaalinen. Omaperäinen. Kätketty aarre.",
+        "manifest-p2": "Å-kirjain kollektiivin nimessä edustaa tätä kaikkea. Se mahdollistaa tekemisellemme lähes minkä tahansa merkityksen. Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.",
+        "manifest-p3": "Lähestymme taidetta vapaasti – kulloistenkin ideoiden, ajatusten, halujen ja intuition johdattelemana. Teemme taidetta itsenäisesti, yhdessä ja rinnakkain.",
+        "manifest-p4": "Työskentelytapamme perustuu avoimuuteen. Kannustamme toisiamme. Kokeilemme. Leikimme taiteella ja sen käsitteillä. Å-kollektiiviin mahtuu laaja kirjo tekemistä. Ilman rajoituksia. Ilman odotuksia.",
+        "manifest-p5": "Nousemme taiteen homogeenisyyttä vastaan ja annamme oman näkemyksemme näkyä ja kuulua rohkeasti."
+      },
+      en: {
+        "hero-title": "Å-Collective",
+        "hero-eyebrow": "Association of photographic artists",
+        "hero-intro": "Å-Collective is an association of photographic artists without hierarchy. We make art independently, together and side by side.",
+        "meta-contact": "Contact",
+        "meta-social": "Socials",
+        "manifest-title": "Manifesto",
+        "manifest-author": "Written by Otso Kähönen 8.3.2026",
+        "news-title": "Current News",
+        "news-content": "Å-Collective = Å-Collective: Group exhibition of photographic art 7–30 May 2026 Galleria West, Cable Factory",
+        "collective-title": "Å-collective",
+        "manifest-p1": "The letter Å rarely appears in the Finnish language. It is mainly found in place names, proper nouns, and rare loanwords. Among our 29 alphabets, å is a true exception. Marginal. Original. A hidden treasure.",
+        "manifest-p2": "The letter Å in the collective's name represents all of this. It allows almost any meaning for our work. Å-Collective is an association of photographic artists without hierarchy.",
+        "manifest-p3": "We approach art freely – guided by current ideas, thoughts, desires, and intuition. We make art independently, together, and side by side.",
+        "manifest-p4": "Our way of working is based on openness. We encourage each other. We experiment. We play with art and its concepts. There is room for a wide range of activities in the Å-collective. Without limits. Without expectations.",
+        "manifest-p5": "We rise against the homogeneity of art and let our own vision be seen and heard boldly."
+      },
+      sv: {
+        "hero-title": "Å-Kollektivet",
+        "hero-eyebrow": "Sammanslutning av fotokonstnärer",
+        "hero-intro": "Å-Kollektivet är en sammanslutning av fotokonstnärer utan hierarki. Vi skapar konst självständigt, tillsammans och sida vid sida.",
+        "meta-contact": "Kontakt",
+        "meta-social": "Sociala medier",
+        "manifest-title": "Manifest",
+        "manifest-author": "Skrivet av Otso Kähönen 8.3.2026",
+        "news-title": "Aktuellt",
+        "news-content": "Å-Kollektivet = Å-Kollektivet: Grupputställning för fotokonst 7–30.5.2026 Galleria West, Kabelfabriken",
+        "collective-title": "Å-kollektivet",
+        "manifest-p1": "Bokstaven Å förekommer knappt i det finska språket. Den finns främst i ortnamn, egennamn och sällsynta lånord. Bland våra 29 alfabet är å ett sant undantag. Marginell. Originell. En dold skatt.",
+        "manifest-p2": "Bokstaven Å i kollektivets namn representerar allt detta. Det möjliggör nästan vilken betydelse som helst för vårt arbete. Å-Kollektivet är en sammanslutning av fotokonstnärer utan hierarki.",
+        "manifest-p3": "Vi närmar oss konst fritt – guidade av aktuella idéer, tankar, önskningar och intuition. Vi skapar konst självständigt, tillsammans och sida vid sida.",
+        "manifest-p4": "Vårt arbetssätt bygger på öppenhet. Vi uppmuntrar varandra. Vi experimenterar. Vi leker med konsten och dess begrepp. Det finns plats för ett brett utbud av aktiviteter i Å-kollektivet. Utan gränser. Utan förväntningar.",
+        "manifest-p5": "Vi reser oss mot konstens homogenitet och låter vår egen vision synas och höras med mod."
+      }
+    };
+
+    function toggleDropdown() {
+      document.getElementById('langDropdown').classList.toggle('show');
+    }
+
+    function changeLang(lang) {
+      document.getElementById('langDropdown').classList.remove('show');
+      
+      const trigger = document.getElementById('langTrigger');
+      const options = document.querySelectorAll('.lang-option');
+      options.forEach(opt => {
+        if(opt.getAttribute('onclick').includes(lang)) {
+          trigger.innerHTML = opt.querySelector('svg').outerHTML;
+        }
+      });
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      const manifestDiv = document.getElementById('manifest-content');
+      manifestDiv.innerHTML = `
+        <p>${translations[lang]['manifest-p1']}</p>
+        <p>${translations[lang]['manifest-p2']}</p>
+        <p>${translations[lang]['manifest-p3']}</p>
+        <p>${translations[lang]['manifest-p4']}</p>
+        <p>${translations[lang]['manifest-p5']}</p>
+      `;
+
+      const h1 = document.getElementById('sivun-otsikko');
+      const newTitle = translations[lang]['hero-title'];
+      h1.textContent = newTitle;
+      
+      h1.style.animation = 'none';
+      h1.offsetHeight; 
+      h1.style.animation = `kirjoita 6s steps(${newTitle.length}, end) infinite, vilkku-kursori 0.75s step-end infinite`;
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('.lang-trigger') && !event.target.matches('.lang-trigger *')) {
+        const dropdowns = document.getElementsByClassName("lang-dropdown");
+        for (let i = 0; i < dropdowns.length; i++) {
+          let openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
 </body>
 </html>
