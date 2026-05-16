@@ -1,66 +1,223 @@
-<style>
-  h1 {
-    max-width: fit-content;
-    font-size: clamp(48px, 6.7vw, 96px);
-    letter-spacing: -0.065em;
-    white-space: nowrap;
-    overflow: hidden;
-    line-height: 1.2;
-    border-right: 4px solid var(--ink);
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.">
+  <title>Å-Kollektiivi</title>
 
-    /* VERY SLOW ANIMATION */
-    animation:
-      kirjoita 18s steps(13, end) infinite,
-      vilkku-kursori 1.6s step-end infinite;
-  }
-
-  @keyframes kirjoita {
-    0%, 100% {
-      width: 0;
+  <style>
+    :root {
+      --bg: #fff;
+      --ink: #111;
+      --muted: #6d665c;
+      --line: rgba(17,17,17,.18);
+      --highlight: #F2BE1F;
     }
 
-    /* waits longer before fully typed */
-    45%, 70% {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .hero {
+      position: relative;
       width: 100%;
-    }
-  }
-
-  @keyframes vilkku-kursori {
-    from, to {
-      border-color: transparent;
+      max-width: 1200px;
+      padding: 40px;
     }
 
-    50% {
-      border-color: var(--ink);
+    .hero-mark {
+      position: absolute;
+      right: 0;
+      bottom: -120px;
+      z-index: 0;
+      opacity: 1;
+      color: var(--highlight);
+      pointer-events: none;
     }
-  }
-</style>
 
-<script>
-  const translations = {
-    fi: {
-      "hero-title": "Å-Kollektiivi"
-    },
-    en: {
-      "hero-title": "Å-Collective"
-    },
-    sv: {
-      "hero-title": "Å-Kollektivet"
+    .hero-letter {
+      font-size: clamp(240px, 40vw, 520px);
+      line-height: .8;
+      letter-spacing: -.12em;
+      font-family: 'monsal-gothic', sans-serif;
+      font-weight: 700;
     }
-  };
 
-  function changeLang(lang) {
-    const h1 = document.getElementById('sivun-otsikko');
-    const newTitle = translations[lang]['hero-title'];
+    .hero-copy {
+      position: relative;
+      z-index: 1;
+    }
 
-    h1.textContent = newTitle;
+    .eyebrow {
+      margin-bottom: 24px;
+      color: var(--muted);
+      font-size: 14px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      font-family: 'monsal-gothic', sans-serif;
+      font-weight: 700;
+    }
 
-    /* RESTART VERY SLOW ANIMATION */
-    h1.style.animation = 'none';
-    h1.offsetHeight;
+    h1 {
+      width: fit-content;
+      overflow: hidden;
+      white-space: nowrap;
 
-    h1.style.animation =
-      `kirjoita 18s steps(${newTitle.length}, end) infinite,
-       vilkku-kursori 1.6s step-end infinite`;
-  }
-</script>
+      font-size: clamp(56px, 8vw, 120px);
+      line-height: 1.1;
+      letter-spacing: -.07em;
+      text-transform: uppercase;
+
+      border-right: 4px solid var(--ink);
+
+      font-family: 'monsal-gothic', sans-serif;
+      font-weight: 700;
+
+      /* VERY SLOW TYPEWRITER */
+      animation:
+        kirjoita 20s steps(13, end) infinite,
+        vilkku-kursori 1.8s step-end infinite;
+    }
+
+    .intro {
+      margin-top: 32px;
+      max-width: 700px;
+
+      color: var(--muted);
+      font-size: clamp(18px, 2vw, 28px);
+      line-height: 1.4;
+    }
+
+    /* VERY SLOW TYPING */
+    @keyframes kirjoita {
+
+      0% {
+        width: 0;
+      }
+
+      35% {
+        width: 100%;
+      }
+
+      /* HOLD TEXT FOR LONG TIME */
+      75% {
+        width: 100%;
+      }
+
+      100% {
+        width: 0;
+      }
+    }
+
+    /* SLOW CURSOR BLINK */
+    @keyframes vilkku-kursori {
+      from,
+      to {
+        border-color: transparent;
+      }
+
+      50% {
+        border-color: var(--ink);
+      }
+    }
+
+    @media (max-width: 768px) {
+
+      body {
+        align-items: flex-start;
+      }
+
+      .hero {
+        padding: 28px;
+        margin-top: 100px;
+      }
+
+      .hero-mark {
+        bottom: -40px;
+        right: -20px;
+      }
+
+      .hero-letter {
+        font-size: clamp(180px, 60vw, 300px);
+      }
+
+      h1 {
+        font-size: clamp(42px, 11vw, 72px);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <section class="hero">
+
+    <div class="hero-copy">
+      <p class="eyebrow">
+        Valokuvataiteilijoiden yhteenliittymä
+      </p>
+
+      <h1 id="sivun-otsikko">
+        Å-Kollektiivi
+      </h1>
+
+      <p class="intro">
+        Å-Kollektiivi on valokuvataiteilijoiden yhteenliittymä ilman hierarkiaa.
+        Teemme taidetta itsenäisesti, yhdessä ja rinnakkain.
+      </p>
+    </div>
+
+    <div class="hero-mark">
+      <span class="hero-letter">Å</span>
+    </div>
+
+  </section>
+
+  <script>
+    const titles = [
+      "Å-Kollektiivi",
+      "Å-Collective",
+      "Å-Kollektivet"
+    ];
+
+    let current = 0;
+
+    const h1 = document.getElementById("sivun-otsikko");
+
+    function changeTitle() {
+
+      current = (current + 1) % titles.length;
+
+      const newTitle = titles[current];
+
+      h1.style.animation = "none";
+
+      h1.offsetHeight;
+
+      h1.textContent = newTitle;
+
+      h1.style.animation =
+        `kirjoita 20s steps(${newTitle.length}, end) infinite,
+         vilkku-kursori 1.8s step-end infinite`;
+    }
+
+    /* CHANGE LANGUAGE VERY SLOWLY */
+    setInterval(changeTitle, 20000);
+  </script>
+
+</body>
+</html>
