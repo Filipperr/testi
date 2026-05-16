@@ -13,11 +13,44 @@
       height: 30px;
       width: auto;
       vertical-align: middle;
-      margin-left: 8px;
     }
     #kuva {
       height: 30px;
       width: auto;
+      vertical-align: middle;
+    }
+    .social-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 4px;
+    }
+    .social-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 10px;
+    }
+    .social-icon-link {
+      display: inline-flex;
+      align-items: center;
+      line-height: 0;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 0.22s ease, opacity 0.22s ease;
+    }
+    .social-icon-link:hover {
+      text-decoration: none;
+    }
+    @media (hover: hover) and (pointer: fine) {
+      .social-icon-link:hover {
+        transform: scale(1.08);
+      }
+    }
+    .social-icon-link:focus-visible {
+      outline: 2px solid var(--highlight);
+      outline-offset: 3px;
+      border-radius: 2px;
     }
     #aika {
       color: var(--highlight);
@@ -475,10 +508,20 @@
           </div>
           <div class="meta-block">
             <span class="meta-title" id="sasa" data-i18n="meta-social">Some</span>
-            <a href="https://www.instagram.com/_kollektiivi?igsh=dmx3NmNpenF1MG9j" id="insta">Instagram</a>
-            <img id="kuvu" src="https://static.vecteezy.com/system/resources/thumbnails/023/986/885/small/instagram-logo-instagram-logo-transparent-instagram-icon-transparent-free-free-png.png" alt="">
-            <a href="https://www.facebook.com/photo/?fbid=1410923627729979&set=å-kollektiivi-å-kollektiiviå-kollektiivin-esikoisnäyttely-avautuukuuden-valokuva">Facebook<a>
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Facebook_icon_%28black%29.svg/3840px-Facebook_icon_%28black%29.svg.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=thumbnail" id="kuva">
+            <div class="social-stack">
+              <div class="social-row">
+                <a href="https://www.instagram.com/_kollektiivi?igsh=dmx3NmNpenF1MG9j" id="insta" target="_blank" rel="noopener noreferrer">Instagram</a>
+                <a class="social-icon-link" href="https://www.instagram.com/_kollektiivi?igsh=dmx3NmNpenF1MG9j" target="_blank" rel="noopener noreferrer" aria-label="Instagram — avautuu uuteen välilehteen">
+                  <img id="kuvu" src="https://static.vecteezy.com/system/resources/thumbnails/023/986/885/small/instagram-logo-instagram-logo-transparent-instagram-icon-transparent-free-free-png.png" alt="Instagram">
+                </a>
+              </div>
+              <div class="social-row">
+                <a href="https://www.facebook.com/photo/?fbid=1410923627729979&amp;set=å-kollektiivi-å-kollektiivin-esikoisnäyttely-avautuukuuden-valokuva" id="fb" target="_blank" rel="noopener noreferrer">Facebook</a>
+                <a class="social-icon-link" href="https://www.facebook.com/photo/?fbid=1410923627729979&amp;set=å-kollektiivi-å-kollektiivin-esikoisnäyttely-avautuukuuden-valokuva" target="_blank" rel="noopener noreferrer" aria-label="Facebook — avautuu uuteen välilehteen">
+                  <img id="kuva" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Facebook_icon_%28black%29.svg/64px-Facebook_icon_%28black%29.svg.png" alt="Facebook">
+                </a>
+              </div>
+            </div>
           </div>
         </aside>
 
